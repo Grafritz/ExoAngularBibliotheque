@@ -11,7 +11,9 @@ export class BooksService {
   books: Book[] = [];
   booksSubject = new Subject<Book[]>();
 
-  constructor() { }
+  constructor() {
+    this.getBooks();
+   }
 
   emitBooks() {
     this.booksSubject.next(this.books); // .slice());
@@ -25,6 +27,7 @@ export class BooksService {
     firebase.database().ref('/books')
     .on('value', (data) => {
       this.books = data.val() ? data.val() : [];
+      this.emitBooks();
     });
   }
 

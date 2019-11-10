@@ -9,8 +9,7 @@ import * as firebase from 'firebase';
 export class AppComponent {
 
   constructor() {
-    // tslint:disable-next-line: prefer-const
-    let firebaseConfig = {
+    const firebaseConfig = {
       apiKey: 'AIzaSyDNDLGdMP8IUvyHNKOhJ0uuq0Kg0mQFi5c',
       authDomain: 'exoangularbibliotheque.firebaseapp.com',
       databaseURL: 'https://exoangularbibliotheque.firebaseio.com',
@@ -22,6 +21,6 @@ export class AppComponent {
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
+    // firebase.analytics();
   }
 }
