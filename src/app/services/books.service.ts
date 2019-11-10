@@ -53,7 +53,7 @@ export class BooksService {
   }
 
   removeBook(book: Book) {
-    if(book.photo) {
+    if (book.photo) {
       const storageRef = firebase.storage().refFromURL(book.photo);
       storageRef.delete().then(
         () => {
