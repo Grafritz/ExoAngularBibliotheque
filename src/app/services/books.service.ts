@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Book } from '../models/book.model';
 import { Subject } from 'rxjs';
 import * as firebase from 'firebase';
-import { reject } from 'q';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,7 @@ export class BooksService {
   constructor() { }
 
   emitBooks() {
-    this.booksSubject.next(this.books.slice());
+    this.booksSubject.next(this.books); // .slice());
   }
 
   saveBook() {
@@ -37,11 +36,30 @@ export class BooksService {
               resolve(data.val());
             },
             (erreur) => {
-              reject(erreur);
+              rejecte(erreur);
             }
           );
         }
     );
+  }
+
+  createNewBook(newBook: Book) {
+    this.books.push(newBook);
+    this.saveBook();
+    this.emitBooks();
+  }
+
+  removeBook(book: Book) {
+    const bookIndexToRemove = this.books.findIndex(
+      (bookEl) => {
+        if (bookEl === book ) {
+          return true;
+        }
+      }
+    );
+    this.books.slice(bookIndexToRemove, 1);
+    this.saveBook();
+    this.emitBooks();
   }
 
 }
